@@ -4,8 +4,10 @@ from reviews.models import Review
 from user_auth.models import Profile
 from offers.models import Offer 
 from django.db.models import Avg
+from rest_framework.permissions import AllowAny
 
 class BaseInfoViews(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, *args, **kwargs):
         review_count = Review.objects.count()
         average_rating = Review.objects.aggregate(average_rating=Avg('rating'))['average_rating']
